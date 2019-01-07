@@ -23,8 +23,12 @@ DSP_EXPORT double typical_error(const double *data, size_t size);
 DSP_EXPORT float typical_errorf(const float *data, size_t size);
 DSP_EXPORT range histogram(size_t *output, size_t bins, const double *data, size_t size);
 DSP_EXPORT rangef histogramf(size_t *output, size_t bins, const float *data, size_t size);
+DSP_EXPORT double gaussian(double mean, double stddev, double x);
+DSP_EXPORT float gaussianf(float mean, float stddev, float x);
 
 #ifdef __cplusplus
+
+#include <functional>
 
 #define IMPL(func) \
 	template <typename T> \
@@ -57,6 +61,24 @@ namespace dsp {
 
 	inline ::rangef histogramf(size_t *output, size_t bins, const float *data, size_t size) {
 		return ::histogramf(output, bins, data, size);
+	}
+
+	template <typename T>
+	inline T gaussian(T mean, T stddev, T x);
+
+	template <>
+	inline double gaussian<double>(double mean, double stddev, double x) {
+		return ::gaussian(mean, stddev, x);
+	}
+
+	template <>
+	inline float gaussian<float>(float mean, float stddev, float x) {
+		return ::gaussianf(mean, stddev, x);
+	}
+
+	template <typename T>
+	inline std::function<T(T)> gaussian(T mean, T stddev) {
+		return [=](T x) { return gaussian(mean, stddev, x); };
 	}
 }
 

@@ -1,4 +1,5 @@
 #include "include/statistics.h"
+#include "include/constants.h"
 #include <cmath>
 
 namespace dsp {
@@ -6,6 +7,19 @@ namespace dsp {
 	struct range {
 		T begin;
 		T end;
+	};
+
+	template <typename T>
+	struct pi;
+
+	template <>
+	struct pi<double> {
+		static double value() { return ::pi; }
+	};
+
+	template <>
+	struct pi<float> {
+		static float value() { return ::pif; }
 	};
 }
 
@@ -94,4 +108,17 @@ rangef histogramf(size_t *output, size_t bins, const float *data, size_t size) {
 	histogram_impl(output, bins, data, size, range);
 	::rangef res = { range.begin, range.end };
 	return res;
+}
+
+template <typename T>
+inline T gaussian_impl(T mean, T stddev, T x) {
+	return (1 / sqrt((T)2 * dsp::pi<T>::value() * stddev)) * exp(-square((T)x - mean) / ((T)2 * square(stddev)));
+}
+
+double gaussian(double mean, double stddev, double x) {
+	return gaussian_impl(mean, stddev, x);
+}
+
+float gaussianf(float mean, float stddev, float x) {
+	return gaussian_impl(mean, stddev, x);
 }
