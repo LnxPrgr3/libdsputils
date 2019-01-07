@@ -10,5 +10,5 @@ clean:
 ${TARGET}: statistics.o constants.o
 	${CXX} ${CXXFLAGS} -shared -Wl,-soname,${TARGET}.${VERSION} -o ${TARGET} $<
 
-statistics.o: statistics.cpp
+statistics.o: statistics.cpp include/statistics.h
 constants.o: constants.cpp include/constants.h
