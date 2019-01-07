@@ -3,6 +3,16 @@
 #include "extern.h"
 #include <stddef.h>
 
+struct range {
+	double start;
+	double end;
+};
+
+struct rangef {
+	float start;
+	float end;
+};
+
 DSP_EXPORT double mean(const double *data, size_t size);
 DSP_EXPORT float meanf(const float *data, size_t size);
 DSP_EXPORT double variance(const double *data, size_t size);
@@ -11,6 +21,8 @@ DSP_EXPORT double stddev(const double *data, size_t size);
 DSP_EXPORT float stddevf(const float *data, size_t size);
 DSP_EXPORT double typical_error(const double *data, size_t size);
 DSP_EXPORT float typical_errorf(const float *data, size_t size);
+DSP_EXPORT range histogram(size_t *output, size_t bins, const double *data, size_t size);
+DSP_EXPORT rangef histogramf(size_t *output, size_t bins, const float *data, size_t size);
 
 #ifdef __cplusplus
 
@@ -38,6 +50,14 @@ namespace dsp {
 	IMPL(variance);
 	IMPL(stddev);
 	IMPL(typical_error);
+
+	inline ::range histogram(size_t *output, size_t bins, const double *data, size_t size) {
+		return ::histogram(output, bins, data, size);
+	}
+
+	inline ::rangef histogramf(size_t *output, size_t bins, const float *data, size_t size) {
+		return ::histogramf(output, bins, data, size);
+	}
 }
 
 #undef IMPL
