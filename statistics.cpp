@@ -1,5 +1,10 @@
 #include "include/statistics.h"
 
+template <typename T>
+inline T square(T x) {
+	return x * x;
+}
+
 #define IMPL(func) \
 	template <typename T> \
 	inline T func ## _impl(const T *, size_t); \
@@ -19,6 +24,15 @@ IMPL(mean) {
 	T result = 0;
 	for (size_t i = 0; i < size; ++i) {
 		result += data[i];
+	}
+	return result / size;
+}
+
+IMPL(variance) {
+	T average = dsp::mean(data, size);
+	T result = 0;
+	for (size_t i = 0; i < size; ++i) {
+		result += square(data[i] - average);
 	}
 	return result / size;
 }
