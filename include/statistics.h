@@ -9,6 +9,8 @@ DSP_EXPORT double variance(const double *data, size_t size);
 DSP_EXPORT float variancef(const float *data, size_t size);
 DSP_EXPORT double stddev(const double *data, size_t size);
 DSP_EXPORT float stddevf(const float *data, size_t size);
+DSP_EXPORT double typical_error(const double *data, size_t size);
+DSP_EXPORT float typical_errorf(const float *data, size_t size);
 
 #ifdef __cplusplus
 
@@ -35,6 +37,7 @@ namespace dsp {
 	IMPL(mean);
 	IMPL(variance);
 	IMPL(stddev);
+	IMPL(typical_error);
 }
 
 #undef IMPL

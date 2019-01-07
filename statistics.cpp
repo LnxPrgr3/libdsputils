@@ -41,3 +41,9 @@ IMPL(variance) {
 IMPL(stddev) {
 	return sqrt(dsp::variance(data, size));
 }
+
+IMPL(typical_error) {
+	T dev = dsp::stddev(data, size);
+
+	return dev / (pow((T)size, (T)0.5));
+}
