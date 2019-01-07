@@ -1,4 +1,5 @@
 #include "include/statistics.h"
+#include <cmath>
 
 template <typename T>
 inline T square(T x) {
@@ -35,4 +36,8 @@ IMPL(variance) {
 		result += square(data[i] - average);
 	}
 	return result / size;
+}
+
+IMPL(stddev) {
+	return sqrt(dsp::variance(data, size));
 }
