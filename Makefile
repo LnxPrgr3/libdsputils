@@ -1,13 +1,14 @@
-CXXFLAGS=-O3 -fvisibility=hidden
+CXXFLAGS=-O3 -fvisibility=hidden -fPIC
 TARGET=libdsputils.so
 VERSION=0
 
 all: ${TARGET}
 
 clean:
-	rm -f ${TARGET} libdsputils.o
+	rm -f ${TARGET} statistics.o constants.o
 
-${TARGET}: libdsputils.o
-	${CXX} -shared -Wl,-soname,${TARGET}.${VERSION} -o ${TARGET} $<
+${TARGET}: statistics.o constants.o
+	${CXX} ${CXXFLAGS} -shared -Wl,-soname,${TARGET}.${VERSION} -o ${TARGET} $<
 
-libdsputils.o: libdsputils.cpp
+statistics.o: statistics.cpp include/statistics.h
+constants.o: constants.cpp include/constants.h
