@@ -157,12 +157,14 @@
   <ItemGroup>
     <ClCompile Include="constants.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="noise.cpp" />
     <ClCompile Include="statistics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\constants.h" />
     <ClInclude Include="include\extern.h" />
     <ClInclude Include="include\libdsputils.h" />
+    <ClInclude Include="include\noise.h" />
     <ClInclude Include="include\statistics.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
